@@ -72,5 +72,4 @@ npx cap open android
 
 ## 🐝 Getting Help
 
-- **Technical Blockers:** Tag your Folder Lead or the PM in the Discord #dev channel.
-- **Infrastructure:** See the PM for any Capacitor, build, or environment variable issues.
+- Discord channel, tagging Leads/PM, etc.
