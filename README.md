@@ -7,7 +7,7 @@
 To manage our team of 8 effectively, we follow a **Feature-Based Modular Architecture**.
 
 1. **Ownership:** Each Lead owns a specific folder in `src/features`.
-2. **Isolation:** Only export via `index.ts`. Never "reach in" to another folder's subdirectories.
+2. **Isolation:** Export in `index.ts`. Never "reach in" to another folder's subdirectories. See `features/dashboard` as an example.
 3. **Contracts:** All data must follow the interfaces defined in `src/types/index.ts`.
 4. **Mobile-First:** Use Query Parameters (`/workout?id=123`) and test in Chrome DevTools "Mobile" mode.
 
