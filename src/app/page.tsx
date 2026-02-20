@@ -1,4 +1,4 @@
-import WorkoutLink from '@/features/dashboard/components/WorkoutLink'
+import { WorkoutLink } from '@/features/dashboard'
 import { Workout } from '@/types'
 import { MOCK_WORKOUT_1, MOCK_WORKOUT_2 } from '@/lib/db/mock-data'
 
