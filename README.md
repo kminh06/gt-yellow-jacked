@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🐝 Yellow Jacked
 
-## Getting Started
+> The Georgia Tech-exclusive platform for students to get jacked. Built with Next.js, Capacitor, and Firebase.
 
-First, run the development server:
+## 🧩 The Jigsaw Philosophy
+
+To manage our team of 8 effectively, we follow a **Feature-Based Modular Architecture**.
+
+1. **Ownership:** Each Lead owns a specific folder in `src/features`.
+2. **Isolation:** Export in `index.ts`. Never "reach in" to another folder's subdirectories. See `features/dashboard` as an example.
+3. **Contracts:** All data must follow the interfaces defined in `src/types/index.ts`.
+4. **Mobile-First:** Use Query Parameters (`/workout?id=123`) and test in Chrome DevTools "Mobile" mode.
+
+---
+
+## 📂 Team & Folder Map
+
+| Folder                | Lead                                | Responsibility                                                                                                 |
+| :-------------------- | :---------------------------------- | :------------------------------------------------------------------------------------------------------------- |
+| `features/auth`       | **Auth Lead**                       | Firebase Auth & `useAuth` hook                                                                                 |
+| `features/workouts`   | **Workout Builder Team (2 people)** | Workout detail page & Builder logic                                                                            |
+| `features/visualizer` | **Visualizer Lead**                 | 3D Human Body Canvas                                                                                           |
+| `features/dashboard`  | **Dashboard Lead**                  | Home page & Progress tracking                                                                                  |
+| `components/ui`       | **Designer**                        | Global Shadcn/Tailwind theme customization                                                                     |
+| `lib/db`              | **Backend Team (2 people)**         | Setting up Firestore database, writing type-safe CRUD services for frontend, exercise search & API integration |
+
+### 📜 Folder Rules for Leads
+
+- **Standardized Sub-folders:** Use `api`, `components`, `hooks`, and `types` inside your feature folder.
+- **Smart vs. Dumb UI:** Logic-heavy components stay in `features/`. Generic UI (buttons, cards) live in `src/components/ui`.
+- **Backend Rule:** The Backend Team provides "Black Box" hooks. If a lead needs to save data, the Backend team provides a `useSaveData()` hook to handle the logic.
+
+---
+
+## 🛠 Setup & Build
 
 ```bash
+# 1. Install & Config
+git clone https://github.com/kminh06/gt-yellow-jacked.git
+cd gt-yellow-jacked
+npm install && cp .env.example .env.local
+
+# 2. Run in Browser
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# 3. Sync to Native
+npm run build && npx cap sync
+
+# 4. Run in Xcode/Android Studio
+npx cap open ios
+npx cap open android
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📜 Dev Guidelines
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Safe Areas:** The App Shell will handle the iPhone notch and home bar at the layout level; just focus on building your features
+- **Atomic UI:** Always check `src/components/ui` for existing components before building your own.
+- **Data:** Use `MOCK_DATA` until the Backend Team delivers your feature-specific hooks.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🚀 Branching & PRs
 
-To learn more about Next.js, take a look at the following resources:
+**Workflow:** `dev` ➔ `feature/[feature-name]/[task]` ➔ **Merge to `dev`**.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Helping another folder?** Tag that **Folder Lead** as a reviewer on your PR.
+2. **Ready to merge?** Folder Leads tag the **PM** (@kminh06) for the final review into `dev`.
+3. **Releases:** The PM will handle merging `dev` into `main` for stable club releases.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📋 Task Delegation & Sub-Issues
 
-## Deploy on Vercel
+- **High-level Tickets:** The PM creates high-level tickets (e.g., Workout Builder, Backend API) to define the big features.
+- **Sub-Issues:** For complex tickets, Folder Leads should break the work into smaller, actionable GitHub sub-issues. This allows other devs to be assigned to help if necessary.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🐝 Getting Help
+
+- Discord channel, tagging Leads/PM, etc.
