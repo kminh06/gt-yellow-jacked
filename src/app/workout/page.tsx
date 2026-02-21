@@ -1,6 +1,6 @@
 'use client'
 
-import { AddExercisesButton } from '@/features/exercises/components/AddExercisesButton'
+import { AddExercisesButton } from '@/features/workouts'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 

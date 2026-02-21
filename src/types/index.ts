@@ -1,5 +1,5 @@
 /**
- * // This ensures everyone uses the EXACT same spelling for muscles
+ * This ensures everyone uses the EXACT same spelling for muscles. Modify as needed based on external exercise libraries.
  * Owned by: Exercise Library Lead
  */
 export type MuscleGroup =
@@ -13,7 +13,7 @@ export type MuscleGroup =
   | 'abs'
 
 /**
- * The individual exercise unit.
+ * The individual exercise unit. Modify as needed based on external exercise libraries.
  * Owned by: Exercise Library Lead
  */
 export interface Exercise {
@@ -22,6 +22,7 @@ export interface Exercise {
   muscleGroups: MuscleGroup[]
   equipment: string
   instructions?: string[]
+  imgUrl?: string // For the search list
   gifUrl?: string // For the search list
 }
 

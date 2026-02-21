@@ -15,15 +15,14 @@ To manage our team of 8 effectively, we follow a **Feature-Based Modular Archite
 
 ## 📂 Team & Folder Map
 
-| Folder                | Lead                        | Responsibility                                                              |
-| :-------------------- | :-------------------------- | :-------------------------------------------------------------------------- |
-| `features/auth`       | **Auth Lead**               | Firebase Auth & `useAuth` hook                                              |
-| `features/workouts`   | **Workout Builder Lead**    | Workout detail page & Builder logic                                         |
-| `features/exercises`  | **Exercises Lead**          | Exercise search & API integration                                           |
-| `features/visualizer` | **Visualizer Lead**         | 3D Human Body Canvas                                                        |
-| `features/dashboard`  | **Dashboard Lead**          | Home page & Progress tracking                                               |
-| `components/ui`       | **Designer**                | Global Shadcn/Tailwind theme customization                                  |
-| `lib/db`              | **Backend Team (2 people)** | Setting up Firestore database, writing type-safe CRUD services for frontend |
+| Folder                | Lead                                | Responsibility                                                                                                 |
+| :-------------------- | :---------------------------------- | :------------------------------------------------------------------------------------------------------------- |
+| `features/auth`       | **Auth Lead**                       | Firebase Auth & `useAuth` hook                                                                                 |
+| `features/workouts`   | **Workout Builder Team (2 people)** | Workout detail page & Builder logic                                                                            |
+| `features/visualizer` | **Visualizer Lead**                 | 3D Human Body Canvas                                                                                           |
+| `features/dashboard`  | **Dashboard Lead**                  | Home page & Progress tracking                                                                                  |
+| `components/ui`       | **Designer**                        | Global Shadcn/Tailwind theme customization                                                                     |
+| `lib/db`              | **Backend Team (2 people)**         | Setting up Firestore database, writing type-safe CRUD services for frontend, exercise search & API integration |
 
 ### 📜 Folder Rules for Leads
 
@@ -67,6 +66,11 @@ npx cap open android
 1. **Helping another folder?** Tag that **Folder Lead** as a reviewer on your PR.
 2. **Ready to merge?** Folder Leads tag the **PM** (@kminh06) for the final review into `dev`.
 3. **Releases:** The PM will handle merging `dev` into `main` for stable club releases.
+
+## 📋 Task Delegation & Sub-Issues
+
+- **High-level Tickets:** The PM creates high-level tickets (e.g., Workout Builder, Backend API) to define the big features.
+- **Sub-Issues:** For complex tickets, Folder Leads should break the work into smaller, actionable GitHub sub-issues. This allows other devs to be assigned to help if necessary.
 
 ---
 
