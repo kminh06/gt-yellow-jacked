@@ -1,12 +1,14 @@
 'use client'
 
-import { AddExercisesButton } from '@/features/workouts'
+//import { AddExercisesButton } from '@/features/workouts'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
+import { useWorkoutStore } from '@/features/workouts/hooks/useWorkoutStore'
 
 function WorkoutContent() {
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
+  const { exercises, addExercise } = useWorkoutStore()
 
   return (
     <div className='flex flex-col min-h-screen bg-background p-4'>
@@ -20,6 +22,14 @@ function WorkoutContent() {
 
         {/* Workout Exercises List Component goes here */}
         <div className='border w-full flex-2'>
+          <h2 className="text-xl font semibold">Exercises</h2>
+          <ul> 
+            {exercises.map((exercise) => (
+              <li key={exercise.id}>
+                {exercise.name}
+              </li>
+            ))}
+          </ul>
           Workout Exercises List goes here <br></br>
           <br></br>use mock data from "@/lib/db/mock-data.ts" for now, but will
           eventually fetch from Firebase based on the workout ID in the URL
@@ -27,7 +37,6 @@ function WorkoutContent() {
         </div>
       </div>
       {/* AddExercisesButton Component goes here */}
-      <AddExercisesButton />
     </div>
   )
 }
