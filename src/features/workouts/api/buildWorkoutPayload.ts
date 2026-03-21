@@ -7,6 +7,7 @@ export interface WorkoutPayload {
 }
 
 export function buildWorkoutPayload (
+  userId: string,
   workoutName: string,
   startedAt: Date | null,
   exercises: WorkoutExercise[]

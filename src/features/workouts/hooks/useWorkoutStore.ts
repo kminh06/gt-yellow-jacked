@@ -1,5 +1,14 @@
 import { create } from "zustand"
 import { WorkoutExercise, WorkoutSet } from "../types/workout.types"
+import { Exercise } from "@/types"
+
+let _setCounter = 0
+function newSetId() {
+  return `set-${++_setCounter}-${Date.now()}`
+}
+function makeDefaultSet(): WorkoutSet {
+  return { id: newSetId(), reps: 0, weight: 0, completed: false }
+}
 
 interface WorkoutState {
   workoutName: string
@@ -7,14 +16,16 @@ interface WorkoutState {
   exercises: WorkoutExercise[]
 
   setWorkoutName: (name: string) => void
-  startWorkout: () => void
-  addExercise: (exercise: WorkoutExercise) => void
-  removeExercise: (id: string) => void
-  updateSet: (exerciseId: string, setIndex: number, updatedSet: WorkoutSet) => void
   resetWorkout: () => void  
+  addExercise: (exercise: WorkoutExercise) => void
+  removeExercise: (instanceId: string) => void
+  updateNotes: (instanceId: string, notes: string) => void
+  addSet: (instanceId: string) => void
+  removeSet: (instanceId: string, setId: string) => void
+  updateSet: (instanceId: string, setId: string, field: 'reps' | 'weight', value: number | '') => void
+  toggleSetComplete: (instanceId: string, setId: string) => void
 }
 
-const defaultSet: WorkoutSet = {reps: 0, weight: 0, completed: false}
 export const useWorkoutStore = create<WorkoutState>((set) => ({
   workoutName: '',
   startedAt: null,
@@ -24,23 +35,46 @@ export const useWorkoutStore = create<WorkoutState>((set) => ({
 
   startWorkout: () => set((state) => ({startedAt: state.startedAt ?? new Date()})),
 
+  resetWorkout: () => set({workoutName: '', startedAt: null, exercises: []}),
+
   addExercise: (exercise) => 
     set((state) => ({ startedAt: state.startedAt ?? new Date(),
-    exercises: [...state.exercises, {...exercise, sets: exercise.sets && exercise.sets.length > 0 ? exercise.sets.map((s) => ({ ...s, completed: s.completed ?? false })): [defaultSet],},],})),
+    exercises: [...state.exercises, { instanceId: `${exercise.id}-${Date.now()}-${Math.random()}`, exercise, sets: [makeDefaultSet()], notes: '',}],})),
 
-  removeExercise: id => set((state) => ({
-    exercises: state.exercises.filter((ex)=> ex.id !== id), 
+  removeExercise: instanceId => set((state) => ({
+    exercises: state.exercises.filter((ex)=> ex.instanceId !== instanceId), 
   })),
 
-  updateSet: (exerciseId, setIndex, updatedSet) => set((state) => ({
+  updateNotes: (instanceId, notes) => set((state) => ({
+    exercises: state.exercises.map((ex) =>
+      ex.instanceId === instanceId ? { ...ex, notes } : ex
+    ),
+  })),
+
+  addSet: (instanceId) => set((state) => ({
+    exercises: state.exercises.map((ex) =>
+      ex.instanceId === instanceId ? { ...ex, sets: [...ex.sets, makeDefaultSet()] } : ex
+    ),
+  })),
+
+  removeSet: (instanceId, setId) => set((state) => ({
     exercises: state.exercises.map((ex) => {
-      if (ex.id != exerciseId) return ex
-      const newSets = [...ex.sets]
-      newSets[setIndex] = updatedSet
-      return {...ex, sets: newSets}
+      if (ex.instanceId !== instanceId) return ex
+      if (ex.sets.length <= 1) return ex
+      return { ...ex, sets: ex.sets.filter((s) => s.id !== setId) }
     }),
   })),
 
-  resetWorkout: () => set({workoutName: '', startedAt: null, exercises: []}),
-
+  updateSet: (instanceId, setId, field, value) => set((state) => ({
+    exercises: state.exercises.map((ex) => {
+      if (ex.instanceId != instanceId) return ex
+      return { ...ex, sets: ex.sets.map((s) => s.id === setId ? { ...s, [field]: value } : s) }
+    }),
+  })),
+  toggleSetComplete: (instanceId, setId) => set((state) => ({
+    exercises: state.exercises.map((ex) => {
+      if (ex.instanceId !== instanceId) return ex
+      return { ...ex, sets: ex.sets.map((s) => s.id === setId ? { ...s, completed: !s.completed } : s) }
+    }),
+  })),
 }))

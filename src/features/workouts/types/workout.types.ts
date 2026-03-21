@@ -1,11 +1,13 @@
 export interface WorkoutSet {
+  id: string
   reps: number
   weight: number
   completed: boolean
 }
 
 export interface WorkoutExercise {
-  id: string
+  instanceId: string
+  exercise: Exercise
   name: string
   sets: WorkoutSet[]
 }
