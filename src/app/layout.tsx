@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { BottomNav } from '@/components/shared/BottomNav'
+import { AuthProvider } from '@/features/auth'
 import Head from 'next/head'
 
 const geistSans = Geist({
@@ -35,14 +36,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* TOP SAFE AREA (For the iPhone Notch) */}
-        <div className='h-[env(safe-area-inset-top)] w-full bg-background' />
+        <AuthProvider>
+          {/* TOP SAFE AREA (For the iPhone Notch) */}
+          <div className='h-[env(safe-area-inset-top)] w-full bg-background' />
 
-        {/* MAIN CONTENT AREA */}
-        {children}
+          {/* MAIN CONTENT AREA */}
+          {children}
 
-        {/* BOTTOM NAV */}
-        <BottomNav />
+          {/* BOTTOM NAV */}
+          <BottomNav />
+        </AuthProvider>
       </body>
     </html>
   )
