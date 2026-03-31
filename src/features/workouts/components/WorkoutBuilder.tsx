@@ -10,6 +10,7 @@ import { buildWorkoutPayload } from '../api/buildWorkoutPayload'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Dumbbell } from 'lucide-react'
+import { useState } from 'react'
 
 export function WorkoutBuilder() {
   const { user } = useAuth()
@@ -20,10 +21,16 @@ export function WorkoutBuilder() {
   const startedAt     = useWorkoutStore((s) => s.startedAt)
   const setWorkoutName = useWorkoutStore((s) => s.setWorkoutName)
   const save = async () => {
-   const state = useWorkoutStore.getState()
-   console.log('Save workout:', state)
+    setStatus('saving')
+    try {
+      const state = useWorkoutStore.getState()
+      console.log('Save workout:', state)
+      setStatus('success')
+    } catch (e) {
+      setStatus('error')
+    }
   }
-  const status = 'idle'
+  const [status, setStatus] = useState<'idle' | 'saving' | 'success' | 'error'>('idle')
   const error = null
 
   const totalSets = exercises.reduce((n, e) => n + e.sets.length, 0)
@@ -35,7 +42,6 @@ export function WorkoutBuilder() {
 
   const handleSave = async () => {
     if (!user || exercises.length === 0) return
-    const payload = buildWorkoutPayload(user.uid, workoutName, startedAt, exercises)
     await save()
   }
 
