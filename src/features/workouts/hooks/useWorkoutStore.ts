@@ -17,7 +17,7 @@ interface WorkoutState {
 
   setWorkoutName: (name: string) => void
   resetWorkout: () => void  
-  addExercise: (exercise: WorkoutExercise) => void
+  addExercise: (exercise: Exercise) => void
   removeExercise: (instanceId: string) => void
   updateNotes: (instanceId: string, notes: string) => void
   addSet: (instanceId: string) => void
@@ -37,9 +37,14 @@ export const useWorkoutStore = create<WorkoutState>((set) => ({
 
   resetWorkout: () => set({workoutName: '', startedAt: null, exercises: []}),
 
-  addExercise: (exercise) => 
-    set((state) => ({ startedAt: state.startedAt ?? new Date(),
-    exercises: [...state.exercises, { instanceId: `${exercise.id}-${Date.now()}-${Math.random()}`, exercise, sets: [makeDefaultSet()], notes: '',}],})),
+  addExercise: (exercise) => set((state) => ({startedAt: state.startedAt ?? new Date(),
+    exercises: [...state.exercises, {
+      instanceId: `${exercise.id}-${Date.now()}-${Math.random()}`,
+      exercise,
+      sets: [makeDefaultSet()],
+      notes: '',
+    }],
+  })),
 
   removeExercise: instanceId => set((state) => ({
     exercises: state.exercises.filter((ex)=> ex.instanceId !== instanceId), 

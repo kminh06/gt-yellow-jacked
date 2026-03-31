@@ -14,6 +14,7 @@ import { MOCK_EXERCISES } from '@/lib/db/mock-data'
 import { useWorkoutStore } from '@/features/workouts/hooks/useWorkoutStore'
 import { Exercise } from '@/types'
 import { cn } from '@/lib/utils'
+import { WorkoutExercise } from '../types/workout.types'
 
 export function AddExercisesButton() {
   const [open, setOpen] = useState(false)

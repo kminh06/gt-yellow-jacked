@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/lib/utils'
 import { useWorkoutStore } from '@/features/workouts/hooks/useWorkoutStore'
-import { WorkoutExercise } from '@/features/workouts/types'
+import { WorkoutExercise } from '../types/workout.types'
 
 interface ExerciseCardProps {
   workoutExercise: WorkoutExercise

@@ -26,10 +26,6 @@ export interface Exercise {
   gifUrl?: string // For the search list
 }
 
-/**
- * The Workout container.
- * Owned by: Workout Builder Lead
- */
 export interface Workout {
   id: string
   userId: string

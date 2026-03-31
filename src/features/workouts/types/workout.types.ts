@@ -1,3 +1,5 @@
+import { Exercise } from "@/types"
+
 export interface WorkoutSet {
   id: string
   reps: number
@@ -8,8 +10,8 @@ export interface WorkoutSet {
 export interface WorkoutExercise {
   instanceId: string
   exercise: Exercise
-  name: string
   sets: WorkoutSet[]
+  notes: string
 }
 
 export interface Workout {
