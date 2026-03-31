@@ -48,17 +48,17 @@
 }
 
 :root {
---background: #111153;
---foreground: #F4F1E8;
+--background: #FFFFFF;
+--foreground: #000000;
 
 --card: #001288;
 --card-foreground: #F4F1E8;
 
---primary: #CAAC5C;
---primary-foreground: #001288;
+--primary: #B3A369;
+--primary-foreground: #000000;
 
---secondary: #F4F1E8;
---secondary-foreground: #001288;
+--secondary: #003057;
+--secondary-foreground: #ffffff;
 
 --accent: #97947f;
 --accent-foreground: #111153;
