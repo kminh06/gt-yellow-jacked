@@ -4,7 +4,7 @@ import { Home, User, Settings, Search } from 'lucide-react'
 
 export function BottomNav() {
   return (
-    <nav className='fixed bottom-0 left-0 right-0 border-t bg-background'>
+    <nav className='fixed bottom-0 left-0 right-0 bg-primary'>
       {/* The 'pb-[env(safe-area-inset-bottom)]' adds extra padding ONLY on phones that have a swipe bar.
        */}
       <div className='flex justify-around items-center h-16 pb-[env(safe-area-inset-bottom)]'>
