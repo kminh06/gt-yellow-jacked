@@ -1,8 +1,10 @@
 'use client'
 
-import { AddExercisesButton } from '@/features/workouts'
+//import { AddExercisesButton } from '@/features/workouts'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
+import { WorkoutBuilder } from '@/features/workouts/components/WorkoutBuilder'
+import { AddExercisesButton } from '@/features/workouts'
 
 function WorkoutContent() {
   const searchParams = useSearchParams()
@@ -20,14 +22,12 @@ function WorkoutContent() {
 
         {/* Workout Exercises List Component goes here */}
         <div className='border w-full flex-2'>
-          Workout Exercises List goes here <br></br>
-          <br></br>use mock data from "@/lib/db/mock-data.ts" for now, but will
-          eventually fetch from Firebase based on the workout ID in the URL
-          query params
+          <h2 className="text-xl font semibold">Exercises</h2>
+
+          <WorkoutBuilder />
         </div>
       </div>
-      {/* AddExercisesButton Component goes here */}
-      <AddExercisesButton />
+      {<AddExercisesButton />}
     </div>
   )
 }

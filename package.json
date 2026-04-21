@@ -26,7 +26,8 @@
     "react-body-highlighter": "^2.0.5",
     "react-dom": "19.2.3",
     "tailwind-merge": "^3.4.1",
-    "three": "^0.183.2"
+    "three": "^0.183.2",
+    "zustand": "^5.0.11"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
