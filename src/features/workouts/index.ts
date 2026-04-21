@@ -1,6 +1,11 @@
 export { useWorkoutStore } from './hooks/useWorkoutStore'
+export { useActiveWorkoutMuscles } from './hooks/useActiveWorkoutMuscles'
 
-export type { WorkoutExercise, WorkoutSet, Workout } from './types/workout.types'
+export type {
+  WorkoutExercise,
+  WorkoutSet,
+  Workout,
+} from './types/workout.types'
 
 export { buildWorkoutPayload } from './api/buildWorkoutPayload'
 

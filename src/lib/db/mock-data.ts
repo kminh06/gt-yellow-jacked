@@ -1,4 +1,4 @@
-import { Exercise, Workout } from '@/types'
+import { Exercise, MuscleGroup, Workout } from '@/types'
 
 export const MOCK_EXERCISES: Exercise[] = [
   {
@@ -10,8 +10,14 @@ export const MOCK_EXERCISES: Exercise[] = [
   {
     id: 'e2',
     name: 'Pull Ups',
-    muscleGroups: ['back', 'biceps'],
+    muscleGroups: ['lats', 'biceps'],
     equipment: 'Bodyweight',
+  },
+  {
+    id: 'e3',
+    name: 'Squats',
+    muscleGroups: ['glutes', 'quads', 'hamstrings'],
+    equipment: 'Barbell',
   },
 ]
 

@@ -1,26 +1,9 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-
-import Model, {
-  type IExerciseData,
-  type Muscle,
-} from 'react-body-highlighter'
-
+import Model, { type IExerciseData, type Muscle } from 'react-body-highlighter'
 import { cn } from '@/lib/utils'
-
-export type MuscleGroup =
-  | 'abs'
-  | 'biceps'
-  | 'calves'
-  | 'chest'
-  | 'glutes'
-  | 'hamstrings'
-  | 'lats'
-  | 'quads'
-  | 'shoulders'
-  | 'traps'
-  | 'triceps'
+import { MuscleGroup } from '@/types'
 
 export interface VisualizerProps {
   activeMuscles: MuscleGroup[]
@@ -113,10 +96,7 @@ const POSTERIOR_POLYGON_LABELS = [
   ...repeatMuscle('right-soleus', 1),
 ]
 
-export function Visualizer({
-  activeMuscles,
-  className,
-}: VisualizerProps) {
+export function Visualizer({ activeMuscles, className }: VisualizerProps) {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const data = useMemo<IExerciseData[]>(
     () =>
@@ -125,7 +105,7 @@ export function Visualizer({
         muscles: MUSCLE_MAP[muscle],
         frequency: 2,
       })),
-    [activeMuscles]
+    [activeMuscles],
   )
   const [tooltip, setTooltip] = useState<TooltipState>({
     label: '',
@@ -141,10 +121,10 @@ export function Visualizer({
     }
 
     const anteriorPolygons = Array.from(
-      container.querySelectorAll('[data-view="front"] .rbh polygon')
+      container.querySelectorAll('[data-view="front"] .rbh polygon'),
     )
     const posteriorPolygons = Array.from(
-      container.querySelectorAll('[data-view="back"] .rbh polygon')
+      container.querySelectorAll('[data-view="back"] .rbh polygon'),
     )
 
     anteriorPolygons.forEach((polygon, index) => {
@@ -226,10 +206,7 @@ export function Visualizer({
         polygon.removeEventListener('mousemove', showTooltip as EventListener)
         polygon.removeEventListener('mouseleave', hideTooltip)
         polygon.removeEventListener('click', showTooltip as EventListener)
-        polygon.removeEventListener(
-          'touchstart',
-          showTooltip as EventListener
-        )
+        polygon.removeEventListener('touchstart', showTooltip as EventListener)
       })
     }
   }, [data])
@@ -237,8 +214,8 @@ export function Visualizer({
   return (
     <section
       className={cn(
-        'flex min-h-screen items-center justify-center bg-background px-2 py-4 sm:px-4 sm:py-6',
-        className
+        'flex h-full min-h-0 items-center justify-center bg-background px-2 py-3 sm:px-4 sm:py-4',
+        className,
       )}
     >
       <div
@@ -270,7 +247,7 @@ export function Visualizer({
         <div
           className={cn(
             'pointer-events-none absolute z-10 rounded-md border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-900 shadow-md transition-opacity',
-            tooltip.visible ? 'opacity-100' : 'opacity-0'
+            tooltip.visible ? 'opacity-100' : 'opacity-0',
           )}
           style={{
             left: tooltip.x,

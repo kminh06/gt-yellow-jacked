@@ -1,11 +1,51 @@
-import React from 'react'
-import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { ChevronRight } from 'lucide-react'
+import type { Workout } from '@/types'
 
-export function WorkoutLink(props: { id: string }) {
+interface WorkoutLinkProps {
+  workout: Workout
+}
+
+export function WorkoutLink({ workout }: WorkoutLinkProps) {
+  const exerciseCount = workout.exercises.length
+  const muscleGroups = Array.from(
+    new Set(workout.exercises.flatMap((exercise) => exercise.muscleGroups)),
+  )
+
   return (
-    <Button>
-      <Link href={`/workout?id=${props.id}`}>Workout (id: {props.id})</Link>
-    </Button>
+    <Link
+      href={`/workout?id=${workout.id}`}
+      className='block w-full rounded-xl border border-border bg-card p-4 transition-colors hover:bg-accent/40'
+    >
+      <div className='flex items-start justify-between gap-3'>
+        <div className='min-w-0'>
+          <p className='truncate text-base font-semibold text-foreground'>
+            {workout.title}
+          </p>
+          <p className='mt-1 text-xs text-muted-foreground'>
+            {exerciseCount} exercise{exerciseCount === 1 ? '' : 's'}
+          </p>
+        </div>
+        <ChevronRight className='mt-0.5 size-4 shrink-0 text-muted-foreground' />
+      </div>
+
+      {muscleGroups.length > 0 && (
+        <div className='mt-3 flex flex-wrap gap-1.5'>
+          {muscleGroups.slice(0, 4).map((muscle) => (
+            <span
+              key={muscle}
+              className='rounded-full bg-muted px-2 py-1 text-[11px] capitalize text-muted-foreground'
+            >
+              {muscle}
+            </span>
+          ))}
+          {muscleGroups.length > 4 && (
+            <span className='rounded-full bg-muted px-2 py-1 text-[11px] text-muted-foreground'>
+              +{muscleGroups.length - 4}
+            </span>
+          )}
+        </div>
+      )}
+    </Link>
   )
 }
