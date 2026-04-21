@@ -38,3 +38,14 @@ export interface Workout {
   exercises: Exercise[]
   createdAt: number
 }
+
+/**
+ * place filler for syntax check
+ * Owned by: auth
+ */
+export interface User {
+  id: string
+  email: string
+  provider: 'password' | 'google'
+}
+
