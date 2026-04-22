@@ -8,10 +8,11 @@ import { Button } from '@/components/ui/button'
 const workouts: Workout[] = [MOCK_WORKOUT_1, MOCK_WORKOUT_2]
 
 export default function Home() {
-  const totalExercises = workouts.reduce(
-    (count, workout) => count + workout.exercises.length,
-    0,
-  )
+  const totalExercises = new Set(
+    workouts.flatMap((workout) =>
+      workout.exercises.map((exercise) => exercise.id),
+    ),
+  ).size
 
   return (
     <main className='min-h-screen bg-background px-4 pb-24 pt-4'>
@@ -24,7 +25,7 @@ export default function Home() {
             Ready to train today?
           </h1>
           <p className='text-sm text-muted-foreground'>
-            {workouts.length} saved workouts • {totalExercises} total exercises
+            {workouts.length} saved workouts • {totalExercises} unique exercises
           </p>
         </header>
 
@@ -40,7 +41,7 @@ export default function Home() {
             variant='outline'
             className='h-11 justify-between rounded-xl'
           >
-            <Link href='/workout'>
+            <Link href='/workout?new=1'>
               Add New
               <Plus className='size-4' />
             </Link>

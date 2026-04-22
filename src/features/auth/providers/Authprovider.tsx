@@ -4,15 +4,17 @@ import { createContext, useEffect, useState, type ReactNode } from 'react'
 import { onAuthStateChanged, type User } from 'firebase/auth'
 import { usePathname, useRouter } from 'next/navigation'
 import { auth } from '@/lib/db/firebase-config'
-import { Skeleton } from '@/components/ui/skeleton'
 
 const PUBLIC_ROUTES = new Set(['/login', '/signup'])
 
-export const AuthContext = createContext<{
-  user: User | null
-  loading: boolean
-  isAuthenticated: boolean
-} | undefined>(undefined)
+export const AuthContext = createContext<
+  | {
+      user: User | null
+      loading: boolean
+      isAuthenticated: boolean
+    }
+  | undefined
+>(undefined)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const router = useRouter()
@@ -49,7 +51,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isAuthenticated: !!user,
       }}
     >
-      {loading ? <Skeleton></Skeleton> : children}
+      {loading ? (
+        <main className='flex min-h-screen items-center justify-center bg-background px-4'>
+          <p className='text-sm text-muted-foreground'>Loading app...</p>
+        </main>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   )
 }

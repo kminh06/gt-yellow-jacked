@@ -7,9 +7,19 @@ interface WorkoutLinkProps {
 }
 
 export function WorkoutLink({ workout }: WorkoutLinkProps) {
-  const exerciseCount = workout.exercises.length
+  const uniqueExercises = Array.from(
+    new Map(
+      workout.exercises.map((exercise) => [exercise.id, exercise]),
+    ).values(),
+  )
+  const exerciseCount = uniqueExercises.length
+  const listedExerciseNames = uniqueExercises.map((exercise) => exercise.name)
+  const exercisePreview =
+    listedExerciseNames.length > 2
+      ? `${listedExerciseNames.slice(0, 2).join(', ')} +${listedExerciseNames.length - 2}`
+      : listedExerciseNames.join(', ')
   const muscleGroups = Array.from(
-    new Set(workout.exercises.flatMap((exercise) => exercise.muscleGroups)),
+    new Set(uniqueExercises.flatMap((exercise) => exercise.muscleGroups)),
   )
 
   return (
@@ -24,6 +34,9 @@ export function WorkoutLink({ workout }: WorkoutLinkProps) {
           </p>
           <p className='mt-1 text-xs text-muted-foreground'>
             {exerciseCount} exercise{exerciseCount === 1 ? '' : 's'}
+          </p>
+          <p className='mt-1 truncate text-xs text-muted-foreground'>
+            {exercisePreview}
           </p>
         </div>
         <ChevronRight className='mt-0.5 size-4 shrink-0 text-muted-foreground' />

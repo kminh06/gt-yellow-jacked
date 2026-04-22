@@ -21,6 +21,7 @@ export function AddExercisesButton() {
 
   const workoutExercises = useWorkoutStore((s) => s.exercises)
   const addExercise = useWorkoutStore((s) => s.addExercise)
+  const removeExercise = useWorkoutStore((s) => s.removeExercise)
 
   const selectedExerciseIds = useMemo(
     () =>
@@ -42,8 +43,13 @@ export function AddExercisesButton() {
     [query],
   )
 
-  const handleAdd = (exercise: Exercise) => {
-    if (selectedExerciseIds.has(exercise.id)) {
+  const handleToggle = (exercise: Exercise) => {
+    const existingExercise = workoutExercises.find(
+      (workoutExercise) => workoutExercise.exercise.id === exercise.id,
+    )
+
+    if (existingExercise) {
+      removeExercise(existingExercise.instanceId)
       return
     }
 
@@ -59,7 +65,7 @@ export function AddExercisesButton() {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className='max-w-md p-0 gap-0'>
+      <DialogContent className='max-w-md p-0 gap-0 max-sm:fixed max-sm:inset-x-0 max-sm:bottom-[calc(4rem+env(safe-area-inset-bottom))] max-sm:top-auto max-sm:translate-x-0 max-sm:translate-y-0 max-sm:h-[50dvh] max-sm:max-w-none max-sm:rounded-t-2xl sm:top-[50%] sm:left-[50%] sm:translate-x-[-50%] sm:translate-y-[-50%]'>
         <DialogHeader className='px-4 pt-4 pb-2'>
           <DialogTitle>Add Exercise</DialogTitle>
         </DialogHeader>
@@ -90,9 +96,15 @@ export function AddExercisesButton() {
             const isAlreadyAdded = selectedExerciseIds.has(exercise.id)
 
             return (
-              <div
+              <Button
                 key={exercise.id}
-                className='flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 hover:bg-muted transition-colors'
+                type='button'
+                variant={isAlreadyAdded ? 'default' : 'outline'}
+                className={cn(
+                  'flex h-auto w-full items-center justify-between gap-3 rounded-lg px-3 py-3 text-left transition-colors',
+                  isAlreadyAdded && 'bg-primary',
+                )}
+                onClick={() => handleToggle(exercise)}
               >
                 <div className='min-w-0'>
                   <p className='text-sm font-medium truncate'>
@@ -113,23 +125,12 @@ export function AddExercisesButton() {
                   </div>
                 </div>
 
-                <Button
-                  size='sm'
-                  variant={isAlreadyAdded ? 'default' : 'outline'}
-                  className={cn(
-                    'shrink-0 h-8 w-8 p-0',
-                    isAlreadyAdded && 'bg-primary',
-                  )}
-                  onClick={() => handleAdd(exercise)}
-                  disabled={isAlreadyAdded}
-                >
-                  {isAlreadyAdded ? (
-                    <Check className='h-4 w-4' />
-                  ) : (
-                    <Plus className='h-4 w-4' />
-                  )}
-                </Button>
-              </div>
+                {isAlreadyAdded ? (
+                  <Check className='h-4 w-4 shrink-0' />
+                ) : (
+                  <Plus className='h-4 w-4 shrink-0' />
+                )}
+              </Button>
             )
           })}
         </div>
