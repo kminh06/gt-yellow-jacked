@@ -3,14 +3,17 @@
  * Owned by: Exercise Library Lead
  */
 export type MuscleGroup =
-  | 'chest'
-  | 'back'
-  | 'quads'
-  | 'hamstrings'
-  | 'biceps'
-  | 'triceps'
-  | 'shoulders'
   | 'abs'
+  | 'biceps'
+  | 'calves'
+  | 'chest'
+  | 'glutes'
+  | 'hamstrings'
+  | 'lats'
+  | 'quads'
+  | 'shoulders'
+  | 'traps'
+  | 'triceps'
 
 /**
  * The individual exercise unit. Modify as needed based on external exercise libraries.
@@ -26,10 +29,6 @@ export interface Exercise {
   gifUrl?: string // For the search list
 }
 
-/**
- * The Workout container.
- * Owned by: Workout Builder Lead
- */
 export interface Workout {
   id: string
   userId: string
@@ -37,4 +36,14 @@ export interface Workout {
   description?: string
   exercises: Exercise[]
   createdAt: number
+}
+
+/**
+ * place filler for syntax check
+ * Owned by: auth
+ */
+export interface User {
+  id: string
+  email: string
+  provider: 'password' | 'google'
 }
